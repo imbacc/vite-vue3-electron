@@ -1,5 +1,5 @@
 <template>
-	<a href="javascript:history.back(-1)">返回上一页</a>
+	<a href="javascript:history.back(-1)">返回上一页1</a>
 	<div class="home">
 		<img alt="Vue logo" :src="logo" />
 		<HelloWorld :logo="logo" :msg="msg" @call="callClick" ref="childRef" />
