@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "commonjs",
+		"baseUrl": "./",
+		"paths": {
+			//用vite配置 alias
+			"@/*": ["src/render/*"],
+			"@assets/*": ["src/render/assets/*"],
+			"@components/*": ["src/render/components/*"],
+			"@views/*": ["src/render/views/*"],
+			"@common/*": ["src/render/common/*"],
+			"@styles/*": ["src/render/styles/*"]
+		},
+		"sourceMap": false,
+		"strict": true,
+		"types": ["vite/client"]
+	},
+	"include": ["src/render/**/*.vue", "src/render/**/*.js"],
+	"exclude": ["node_modules", "dist"]
+}
