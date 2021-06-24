@@ -15,14 +15,12 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import { set_state } from '@common/store/user_store.js'
 
 export default {
 	setup() {
-		const { commit } = useStore()
-
 		const auth = () => {
-			commit('user_vuex/set_role', ['user']) // 添加user权限
+			set_state('user_role', ['user']) // 添加user权限
 			alert('授权完成,看缓存')
 		}
 

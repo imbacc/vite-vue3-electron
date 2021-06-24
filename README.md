@@ -1,11 +1,15 @@
 # vite2-vue3-electron
 
 vite2 <https://vitejs.dev>
+<br/>
 vue3 <https://v3.cn.vuejs.org>
+<br/>
 electron12  <https://cloud.tencent.com/developer/doc/1070> <https://www.electronjs.org>
-
+<br/>
 `yarn install` `yarn run v-dev -> yarn run e-dev` `建议使用yarn`
+<br/>
 `yarn run v-dev` `先启动vite编译vue3...`
+<br/>
 `yarn run e-dev` `再启动electron编译webview...`
 
 ```

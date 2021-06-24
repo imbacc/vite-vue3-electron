@@ -1,22 +1,30 @@
 const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
 const { join } = require('path')
 const is_dev = process.env.NODE_ENV === 'development'
+const directive = require('./tools/directive.js') // 注册指令按键事件
+const eventIpc = require('./tools/event_ipc.js') // 注册ipc通信事件
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
-app.on('ready', () => {
+const createWindow = () => {
 	// 可以创建多个渲染进程
 	let win = new BrowserWindow({
 		width: 800,
 		height: 600,
+		x: 1000,
+		y: 225,
 		webPreferences: {
-			nodeIntegration: true, // 设置为true就可以在这个渲染进程中调用Node.js
+			javascript: true,
+			plugins: true,
+			nodeIntegration: true, // 是否集成 Nodejs
+			webSecurity: false,
+			preload: join(__dirname, 'preload.js'),
 			contextIsolation: false,
-			enableRemoteModule: true
+			enableRemoteModule: true,
+			nodeIntegrationInWorker: true // 多线程
 		}
 	})
 
-	// 生产环境
 	if (is_dev) {
 		// 开发环境
 		win.loadURL('http://localhost:3100/')
@@ -29,12 +37,19 @@ app.on('ready', () => {
 		// 开发者模式
 		win.webContents.openDevTools()
 		// cra 默认的打包目录是 build，我们生产环境需要这么引入
+
+		//指令
+		directive(win, globalShortcut, BrowserWindow)
+
+		// 全屏
+		win.maximize()
+
+		// 置顶
+		// win.setAlwaysOnTop(true)
 	} else {
+		// 生产环境
 		win.loadFile(join(__dirname, './build/index.html'))
 	}
-
-	// 全屏
-	win.maximize()
 
 	// show
 	win.show()
@@ -46,18 +61,23 @@ app.on('ready', () => {
 	win.on('closed', () => {
 		win = null
 	})
-})
+}
 
-app.on('browser-window-blur', (e) => {
-	console.log('blur')
-})
+app.whenReady().then(() => {
+	createWindow()
+	app.on('activate', () => {
+		if (BrowserWindow.getAllWindows().length === 0) createWindow()
+	})
 
-app.on('browser-window-focus', (e) => {
-	console.log('focus')
-})
+	// app.on('browser-window-blur', (e) => {
+	// 	console.log('blur')
+	// })
 
-app.on('before-quit', function (e) {
-	console.log('out')
+	// app.on('browser-window-focus', (e) => {
+	// 	console.log('focus')
+	// })
+
+	eventIpc(ipcMain)
 })
 
 // 所有窗户关闭时触发。
@@ -69,11 +89,6 @@ app.on('window-all-closed', () => {
 // 当所有窗口关闭且应用程序退出时触发。
 app.on('will-quit', () => {
 	globalShortcut.unregisterAll()
-})
-
-ipcMain.on('test', (event, arg) => {
-	console.log(arg)
-	event.reply('test-reply', '主进程回复消息!')
 })
 
 // 主进程向渲染进程发送消息，'did-finish-load':当导航完成时发出事件，onload 事件也完成

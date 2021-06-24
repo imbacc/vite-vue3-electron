@@ -14,13 +14,11 @@
 
 <script>
 import { computed, getCurrentInstance } from 'vue'
-import { useStore } from 'vuex'
-import { registerStore } from '@/common/store/index.js'
+import { state, set_state } from '@common/store/test_store.js'
 
 export default {
 	setup() {
 		const { ctx } = getCurrentInstance() // ctx => vue2 vm
-		const { commit, state } = useStore()
 
 		console.log('初始化 state', state)
 		console.log('ctx.is_cdn', ctx.is_cdn)
@@ -28,19 +26,17 @@ export default {
 
 		// ---computed---
 		const title = computed(() => state.title)
-		const test = computed(() => state.test_vuex.test)
-		const name = computed(() => state.copy_vuex.name)
+		const test = computed(() => state.test)
+		const name = computed(() => state.name)
 
 		// ---function---
-		const update = () => commit('set_vuex', ['title', 'vue3 composition...'])
+		const update = () => set_state('title', 'vue3 composition...')
 		const register = () => {
 			alert('点我没用看代码!')
-			// 注册test_vuex copy_vuex模块
-			// registerStore(['test_vuex', 'copy_vuex'])
 		}
 		const update_test = () => {
-			commit('test_vuex/set_vuex', ['test', '我修改了test_vuex的state内容!'])
-			commit('copy_vuex/set_vuex', ['name', '我修改了copy_vuex的state内容!'])
+			set_state('test', '我修改了test_vuex的state内容!')
+			set_state('name', '我修改了copy_vuex的state内容!')
 			console.log('修改后 state', state)
 		}
 

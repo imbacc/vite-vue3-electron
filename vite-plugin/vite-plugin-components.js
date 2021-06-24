@@ -1,4 +1,4 @@
-import ViteComponents from 'vite-plugin-components'
+import ViteComponents, { ElementPlusResolver } from 'vite-plugin-components'
 import { ViteIconsResolver } from 'vite-plugin-icons'
 
 // 定义自己的解析器
@@ -11,7 +11,7 @@ import { ViteIconsResolver } from 'vite-plugin-icons'
 export default () => {
 	return ViteComponents({
 		dirs: ['../render/components'], // 搜索路径
-		customComponentResolvers: [ViteIconsResolver()], // 解析器 -> element plus ui解析
+		customComponentResolvers: [ElementPlusResolver(), ViteIconsResolver()], // 解析器 -> element plus ui解析
 		extensions: ['vue'], // 组件的有效文件扩展名。
 		deep: true // 搜索子目录
 	})

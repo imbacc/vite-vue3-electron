@@ -10,7 +10,8 @@
 			"@components/*": ["src/render/components/*"],
 			"@views/*": ["src/render/views/*"],
 			"@common/*": ["src/render/common/*"],
-			"@styles/*": ["src/render/styles/*"]
+			"@styles/*": ["src/render/styles/*"],
+			"@compose/*": ["src/render/common/compose/*"]
 		},
 		"sourceMap": false,
 		"strict": true,

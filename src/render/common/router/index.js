@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import { registerModule } from '@/common/tools/cmake_lazy.js'
-import { LOCA_ROUTER, set_state, get_state } from '@/common/provide/lazy_state.js'
+import { set_router, get_router } from '@/common/store/lazy_store.js'
 
 const routes = [
 	{
@@ -47,7 +47,7 @@ const registerRouter = (name) => {
 				let has = router.hasRoute(r.name) // 初始化加载过的不再重复加载
 				if (!has) router.addRoute(r)
 			})
-			set_state(LOCA_ROUTER, name)
+			set_router(name)
 			resovle(router)
 		})
 	})
@@ -55,7 +55,7 @@ const registerRouter = (name) => {
 
 // 懒加载 加载过的router
 const initLzayRouter = () => {
-	const lazyState = get_state(LOCA_ROUTER)
+	const lazyState = get_router()
 	if (lazyState && Array.isArray(lazyState) && lazyState.length > 0) return registerRouter(lazyState)
 	return Promise.resolve()
 }

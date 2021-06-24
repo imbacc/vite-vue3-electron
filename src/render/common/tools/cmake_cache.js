@@ -52,15 +52,17 @@ const get_cache = (key) => {
 }
 
 // 删除缓存和记录缓存时间
-const del_cache = (key) => {
+const del_cache = async (key) => {
 	localStorage.removeItem(key)
 	localStorage.removeItem(key + '_time')
 }
 
+// 设置对象或数组转JSON字符串存储
 const set_cache_loca = (key, val) => {
 	localStorage.setItem(key, JSON.stringify(val))
 }
 
+// 转换缓存值为对象或数组
 const get_cache_loca = (key) => {
 	let loca = localStorage.getItem(key)
 	try {

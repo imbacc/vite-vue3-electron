@@ -1,20 +1,20 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-import { store, initLzayStore } from '@/common/store/index.js'
+// router
 import { router, initLzayRouter } from '@/common/tools/cmake_router.js'
 
 // js
 import { env, is_cdn } from '@/common/config/cfg.js'
-// import '@/common/lib/electron.js'
+import direct from '@common/directive/index.js' // 指令
 
 // 全局样式
 import 'nprogress/nprogress.css'
 import '@/styles/index.scss'
 
 const app = createApp(App)
-Promise.allSettled([initLzayStore(), initLzayRouter()]).then(() => {
-	app.use(store)
+Promise.allSettled([initLzayRouter()]).then(() => {
+	app.use(direct)
 	app.use(router)
 	app.mount('#app')
 })

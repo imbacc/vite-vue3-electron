@@ -26,14 +26,13 @@ const config = {
 		hmr: { overlay: false }
 	},
 
-	root: join(__dirname, './src/render'),
 	base: './src/render',
-	outDir: join(__dirname, './dist'),
-	assetsDir: 'assets',
+	root: join(__dirname, './src/render'),
 
 	//编译
 	build: {
-		manifest: true,
+		outDir: join(__dirname, './dist'),
+		assetsDir: './src/render/assets',
 		// 打包引入 输出
 		rollupOptions: {
 			// input: 'render/main.js',
@@ -63,8 +62,8 @@ const config = {
 	//部门优化选项
 	optimizeDeps: {
 		// include: ['mockjs', 'axios', 'qs-stringify', 'nprogress', 'vue-router', 'vuex']
-		include: ['nprogress', 'qs-stringify', 'axios', 'vuex', 'electron'],
-		exclude: ['element-plus', 'screenfull', 'nprogress', 'electron']
+		include: ['nprogress', 'qs-stringify', 'axios', 'vuex', 'electron', 'path', 'dayjs'],
+		exclude: ['element-plus']
 		// exclude: ['element-plus', 'mockjs', 'axios', 'qs', 'vuex']
 	},
 
@@ -93,7 +92,8 @@ const config = {
 		'@components': resolve(__dirname, 'src/render/components'),
 		'@views': resolve(__dirname, 'src/render/views'),
 		'@common': resolve(__dirname, 'src/render/common'),
-		'@styles': resolve(__dirname, 'src/render/styles')
+		'@styles': resolve(__dirname, 'src/render/styles'),
+		'@compose': resolve(__dirname, 'src/render/common/compose')
 	},
 
 	// 插件
