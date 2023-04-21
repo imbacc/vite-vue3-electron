@@ -10,7 +10,7 @@ import 'nprogress/nprogress.css'
 
 const setup = async () => {
   const app = createApp(App)
-  const store = await createPinia()
+  const store = createPinia()
   const router = await loadRouterMode()
   app.use(store)
   app.use(router)

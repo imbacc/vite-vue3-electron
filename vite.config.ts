@@ -1,6 +1,7 @@
 import type { UserConfig } from 'vite'
 import type { ENV_DTYPE } from './types/vite-plugin/auto-env'
 
+// import { rmSync } from 'node:fs'
 import { resolve } from 'path'
 import { loadEnv, defineConfig } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -10,7 +11,7 @@ import vue from '@vitejs/plugin-vue'
 // icon 按需引入
 import IconsPlugin from 'unplugin-icons/vite'
 // 使用gzip或brotli来压缩资源
-import compressionPlugin from 'vite-plugin-compression'
+// import compressionPlugin from 'vite-plugin-compression'
 // tsx写法
 import vueTsx from '@vitejs/plugin-vue-jsx'
 // 原子和属性css写法
@@ -39,6 +40,8 @@ const __APP_INFO__ = {
 const config: UserConfig = {
   publicDir: 'public',
 
+  base: './',
+
   // 编译
   build: {
     minify: 'esbuild',
@@ -50,11 +53,14 @@ const config: UserConfig = {
     chunkSizeWarningLimit: 500,
     assetsInlineLimit: 4096,
     rollupOptions: {
-      external: ['electron'],
+      external: [
+        'electron',
+        'serialport',
+        'sqlite3',
+      ],
       output: {
         // chunks 做操作 注释将减少分割
         manualChunks: {
-          'electron': ['electron'],
           'vue': ['vue', 'vue-router'],
           'imba-packages': ['imba-cache', 'imba-request'],
           'lodash-es': ['lodash-es'],
@@ -68,10 +74,13 @@ const config: UserConfig = {
     __APP_INFO__: JSON.stringify(__APP_INFO__),
   },
 
-  // optimizeDeps: {
-  // },
+  optimizeDeps: {
+    include: ['nprogress', 'qs-stringify', 'axios', 'lodash-es', 'electron', 'path', 'dayjs'],
+  },
 
   resolve: {
+    // browserField: false,
+    // mainFields: ['module', 'jsnext:main', 'jsnext'],
     alias: {
       '@': resolve(__dirname, 'src'),
       '#': resolve(__dirname, 'types'),
@@ -100,6 +109,7 @@ const config: UserConfig = {
 }
 
 export default defineConfig(({ command, mode }) => {
+  // rmSync('dist-electron', { recursive: true, force: true })
   const VITE_ENV = formatEnv(loadEnv(mode, process.cwd())) as ENV_DTYPE
   const { VITE_GLOB_APP_TITLE, VITE_USE_MOCK, VITE_BUILD_GZIP } = VITE_ENV
   // console.log('command=', command)
@@ -107,13 +117,13 @@ export default defineConfig(({ command, mode }) => {
 
   if (command === 'build' && mode === 'production') {
     // 编译环境配置
-    if (VITE_BUILD_GZIP) {
-      config.plugins?.push(compressionPlugin({
-        verbose: true,
-        algorithm: 'gzip',
-        ext: '.gz',
-      }))
-    }
+    // if (VITE_BUILD_GZIP) {
+    //   config.plugins?.push(compressionPlugin({
+    //     verbose: true,
+    //     algorithm: 'gzip',
+    //     ext: '.gz',
+    //   }))
+    // }
   } else {
     // 开发环境配置
     config.plugins?.push(headerCache())

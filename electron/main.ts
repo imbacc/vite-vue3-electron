@@ -18,7 +18,7 @@ const createWindow = () => {
       plugins: true,
       nodeIntegration: true, // 是否集成 Nodejs
       webSecurity: false,
-      preload: join(__dirname, 'preload.js'),
+      preload: './preload.js',
       contextIsolation: true,
       nodeIntegrationInWorker: true, // 多线程
     },
@@ -26,14 +26,17 @@ const createWindow = () => {
 
   global.win = win
 
+  globalShortcut.register('CommandOrControl+F12', () => {
+    // 开发者模式
+    win.webContents.openDevTools()
+  })
+
+  // 全屏
+  win.maximize()
+
   if (dev) {
     // 开发环境
     win.loadURL('http://localhost:3900/')
-
-    globalShortcut.register('CommandOrControl+F12', () => {
-    // 开发者模式
-      win.webContents.openDevTools()
-    })
 
     // 开发者模式
     win.webContents.openDevTools()
@@ -42,14 +45,11 @@ const createWindow = () => {
     // 指令
     directive(win)
 
-    // 全屏
-    win.maximize()
-
     // 置顶
     // win.setAlwaysOnTop(true)
   } else {
     // 生产环境
-    win.loadFile(join(__dirname, './dist/render/index.html'))
+    win.loadFile(join(__dirname, '../render/index.html'))
   }
 
   // show

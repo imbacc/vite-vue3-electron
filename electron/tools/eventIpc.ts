@@ -14,7 +14,7 @@ export const ipcEmit = (name: string, args: any) => {
   ipcMain.handle(`${name}-electron`, () => args)
 }
 
-// 给render进程window注入 上下文隔离
+// 给render进程window注入通信 上下文隔离
 export const injectIpcRenderer = () => {
   // 此处日志会在渲染层输出
   console.log('inject window IpcRenderer success!')

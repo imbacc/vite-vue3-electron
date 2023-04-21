@@ -1,26 +1,25 @@
 {
-	"name": "vite2-vue3-electron",
+	"name": "vite-vue3-electron",
 	"version": "1.0.0",
 	"license": "ISC",
 	"author": "imbacc",
 	"main": "./dist/electron/main.js",
 	"scripts": {
-		"dev": "concurrently -n=vue,electron -c=green,blue \"yarn run v-dev\" \"yarn run e-dev\"",
+		"dev": "concurrently -n=vue,electron -c=green,blue \"npm run v-dev\" \"npm run e-dev\"",
+		"build": "rimraf ./deskApp && pnpm run v-build && pnpm run e-build && electron-builder",
 		"divider1": "--------------------------------------------",
 		"v-dev": "vite --mode development --host",
 		"v-dev:test": "vite --mode testing --host",
 		"v-dev:prod": "vite --mode production --host",
-		"v-build": "vite build --mode production",
-		"v-build:test": "vite build --mode testing",
-		"v-build:prod": "vite build --mode production",
+		"v-build": "rimraf ./dist/render && vite build --mode production",
+		"v-build:test": "rimraf ./dist/render && vite build --mode testing",
+		"v-build:prod": "rimraf ./dist/render && vite build --mode production",
 		"v-preview:test": "vite --mode testing preview --host",
 		"v-preview:prod": "vite --mode production preview --host",
 		"v-force": "vite --mode development --host --force",
-		"v-debug": "vite --mode development --host --debug",
 		"divider2": "--------------------------------------------",
 		"e-dev": "nodemon",
-		"e-build64": "electron-forge make ./ winDist --platform=win64 --arch=x64  --out=./app --app-version=1.0.0 --overwrite --icon=./public/favicon.ico",
-		"e-dist": "rm -rf ./dist && electron-forge package",
+		"e-build": "rimraf ./dist/electron && tsc ./electron/main.ts ./electron/preload.ts --outDir ./dist/electron && cross-env NODE_ENV=production",
 		"divider3": "--------------------------------------------",
 		"typecheck": "vue-tsc --noEmit --skipLibCheck",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue",
@@ -30,22 +29,28 @@
 		"prepare": "husky install"
 	},
 	"build": {
-		"appId": "douban-movie-electron",
+		"appId": "vite.vue3.electron",
+		"productName": "vite-vue3-electron",
+		"asar": true,
 		"files": [
-			"package.json",
-			"vite-plugin",
-			"node_modules/**/*",
-			"src/electron/**/*",
-			"src/assets",
-			"src/main.ts"
-		]
+			"dist/**/*",
+			"public/**/*",
+			"package.json"
+		],
+		"directories": {
+			"output": "deskApp"
+		},
+		"mac": {
+		},
+		"win": {
+		}
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/imbacc/vite2-vue3-electron.git"
 	},
 	"dependencies": {
-		"axios": "^1.3.4",
+		"axios": "^1.3.6",
 		"dayjs": "^1.11.7",
 		"imba-cache": "^1.1.6",
 		"imba-request": "^1.0.18",
@@ -60,7 +65,7 @@
 	"devDependencies": {
 		"@antfu/eslint-config": "^0.35.2",
 		"@commitlint/config-conventional": "^17.4.4",
-		"@electron-forge/cli": "^6.1.1",
+		"@types/follow-redirects": "^1.14.1",
 		"@types/lodash-es": "^4.17.6",
 		"@unocss/preset-uno": "^0.48.0",
 		"@unocss/vite": "^0.48.0",
@@ -74,13 +79,16 @@
 		"cross-env": "^7.0.3",
 		"cz-customizable": "^7.0.0",
 		"electron": "^24.1.2",
+		"electron-builder": "^23.6.0",
 		"eslint": "^8.34.0",
 		"eslint-plugin-vue": "^9.8.0",
+		"follow-redirects": "^1.15.2",
 		"husky": "^8.0.2",
 		"imba-config": "^1.0.0",
 		"lint-staged": "^13.1.0",
 		"mockjs": "^1.1.0",
 		"nodemon": "^2.0.22",
+		"rimraf": "^5.0.0",
 		"rollup": "^2.72.1",
 		"sass": "^1.51.0",
 		"stylelint": "^14.16.0",
@@ -91,6 +99,8 @@
 		"unplugin-vue-components": "^0.22.12",
 		"vite": "^4.1.4",
 		"vite-plugin-compression": "^0.5.1",
+		"vite-plugin-electron": "^0.11.2",
+		"vite-plugin-electron-renderer": "^0.14.1",
 		"vite-plugin-html": "^3.2.0",
 		"vite-plugin-mock": "^2.9.6",
 		"vite-plugin-pages": "^0.28.0",

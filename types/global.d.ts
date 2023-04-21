@@ -1,4 +1,5 @@
 import type Electron from 'electron'
+import type { AxiosStatic } from 'axios'
 
 export {}
 declare global {
@@ -7,5 +8,6 @@ declare global {
 
   interface Window {
     ipcRenderer: Electron.IpcRenderer
+    ipcAxios: AxiosStatic
   }
 }

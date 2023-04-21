@@ -1,10 +1,14 @@
 import Axios from 'axios'
+// import followRedirects from 'follow-redirects'
 
 // import message from '@/render/messageRender'
 // import loadingRender from '@/render/loadingRender'
 
 import { ImbaRequest } from 'imba-request'
 import { useUserStore } from '@/store/user'
+
+const ipcAxios = window?.ipcAxios
+console.log('%c [ ipcAxios ]-12', 'font-size:14px; background:#41b883; color:#ffffff;', ipcAxios)
 
 const env = import.meta.env
 
