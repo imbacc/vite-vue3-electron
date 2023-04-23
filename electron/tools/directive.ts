@@ -3,7 +3,13 @@ import { globalShortcut } from 'electron'
 
 // 注册指令按键事件
 export default (win: BrowserWindow) => {
-  // 清除缓存数据 Ctrl + R刷新看效果
+  // 开发者 ctrl+F12
+  globalShortcut.register('CommandOrControl+F12', () => {
+    // 开发者模式
+    win.webContents.openDevTools()
+  })
+
+  // 清除数据缓存并刷新 ctrl+R
   globalShortcut.register('CmdOrCtrl+Shift+D', () => {
     if (win) {
       win.webContents.session.clearStorageData({

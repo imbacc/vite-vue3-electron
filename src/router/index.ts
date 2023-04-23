@@ -4,7 +4,7 @@ import { start, done } from 'nprogress'
 import { pages, router } from '@/router/create'
 import { addAsyncRouterList, addLocalRouterList, initMetaState } from '@/router/meta'
 
-const env = import.meta.env
+const VITE_ROUTER_LOADER = import.meta.env.VITE_ROUTER_LOADER
 
 // configure({ showSpinner: false })
 
@@ -31,7 +31,7 @@ const sleep = () => {
 
 const loadRouterMode = async () => {
   if (!initMetaState.value) {
-    if (env.VITE_ROUTER_LOADER === 'local') {
+    if (VITE_ROUTER_LOADER === 'local') {
       await addLocalRouterList(router, pages)
     } else {
       await addAsyncRouterList(router, pages, sleep)

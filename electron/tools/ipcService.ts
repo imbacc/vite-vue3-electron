@@ -1,6 +1,6 @@
 import { ipcOn, ipcEmit } from './eventIpc'
 
-export default () => {
+export default (win) => {
   ipcOn('test0', (event, args) => {
     return new Promise<string>((resolve) => {
       setTimeout(() => {

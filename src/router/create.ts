@@ -1,5 +1,8 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import pages from '~pages'
+
+const VITE_PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH
+console.log('%c [ VITE_PUBLIC_PATH ]-5', 'font-size:14px; background:#41b883; color:#ffffff;', VITE_PUBLIC_PATH)
 
 const defaultRouter = [
   {
@@ -29,7 +32,8 @@ const defaultRouter = [
 ]
 
 const router = createRouter({
-  history: createWebHistory() || createWebHashHistory(),
+  // history: createWebHistory(VITE_PUBLIC_PATH),
+  history: createWebHashHistory(VITE_PUBLIC_PATH),
   routes: defaultRouter,
 })
 

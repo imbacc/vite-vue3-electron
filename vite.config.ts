@@ -25,8 +25,6 @@ import autoImportPlugin from './vite-plugin/vite-plugin-auto-import'
 import componentsPlugin from './vite-plugin/vite-plugin-components'
 // 自动导入路由 需要可以用
 import routerPagePlugin from './vite-plugin/vite-plugin-routerPage'
-// head cache
-import headerCache from './vite-plugin/vite-plugin-cache'
 
 import packageJson from './package.json'
 import dayjs from 'dayjs'
@@ -38,10 +36,6 @@ const __APP_INFO__ = {
 }
 
 const config: UserConfig = {
-  publicDir: 'public',
-
-  base: './',
-
   // 编译
   build: {
     minify: 'esbuild',
@@ -114,6 +108,7 @@ export default defineConfig(({ command, mode }) => {
   const { VITE_GLOB_APP_TITLE, VITE_USE_MOCK, VITE_BUILD_GZIP } = VITE_ENV
   // console.log('command=', command)
   // console.log('mode=', mode)
+  config.plugins?.push(envPlugin(VITE_ENV))
 
   if (command === 'build' && mode === 'production') {
     // 编译环境配置
@@ -126,8 +121,6 @@ export default defineConfig(({ command, mode }) => {
     // }
   } else {
     // 开发环境配置
-    config.plugins?.push(headerCache())
-    config.plugins?.push(envPlugin(VITE_ENV))
     if (VITE_USE_MOCK) {
       config.plugins?.push(viteMockServe({ mockPath: 'mock', supportTs: false }))
     }
