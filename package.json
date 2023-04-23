@@ -40,10 +40,8 @@
 		"directories": {
 			"output": "deskApp"
 		},
-		"mac": {
-		},
-		"win": {
-		}
+		"mac": {},
+		"win": {}
 	},
 	"repository": {
 		"type": "git",
@@ -99,9 +97,6 @@
 		"unplugin-vue-components": "^0.22.12",
 		"vite": "^4.1.4",
 		"vite-plugin-compression": "^0.5.1",
-		"vite-plugin-electron": "^0.11.2",
-		"vite-plugin-electron-renderer": "^0.14.1",
-		"vite-plugin-html": "^3.2.0",
 		"vite-plugin-mock": "^2.9.6",
 		"vite-plugin-pages": "^0.28.0",
 		"vitest": "^0.26.3",
