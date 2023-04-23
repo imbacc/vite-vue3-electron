@@ -14,10 +14,10 @@ electron  <https://cloud.tencent.com/developer/doc/1070> <https://www.electronjs
 ### vite和electron都启动
 `pnpm run dev`
 <br/>
-### 先启动vite编译vue3
+### 启动vite vue3
 `pnpm run v-dev`
 <br/>
-### 启动electron编译webview...
+### 启动electron webview...
 `pnpm run e-dev`
 
 
