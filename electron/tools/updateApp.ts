@@ -39,5 +39,9 @@ export default (win, app) => {
         }
       })
     })
+
+    app.on('before-quit', () => {
+      autoUpdater.quitAndInstall()
+    })
   })
 }

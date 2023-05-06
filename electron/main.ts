@@ -39,8 +39,7 @@ const createWindow = () => {
     // win.setAlwaysOnTop(true)
   } else {
     // 生产环境
-    win.loadFile(join(__dirname, '../render/index.html'), {
-    })
+    win.loadFile(join(__dirname, '../render/index.html'))
   }
 
   win.on('closed', () => {

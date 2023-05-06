@@ -10,7 +10,7 @@ export default (win: BrowserWindow) => {
   })
 
   // 清除数据缓存并刷新 ctrl+R
-  globalShortcut.register('CmdOrCtrl+Shift+D', () => {
+  globalShortcut.register('CmdOrCtrl+Shift+F5', () => {
     if (win) {
       win.webContents.session.clearStorageData({
         storages: [
