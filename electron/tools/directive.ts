@@ -15,7 +15,6 @@ export default (win: BrowserWindow) => {
       win.webContents.session.clearStorageData({
         storages: [
           'cookies',
-          'appcache',
           'filesystem',
           'indexdb',
           'localstorage',

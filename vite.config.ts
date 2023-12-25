@@ -122,7 +122,7 @@ export default defineConfig(({ command, mode }) => {
   } else {
     // 开发环境配置
     if (VITE_USE_MOCK) {
-      config.plugins?.push(viteMockServe({ mockPath: 'mock', supportTs: false }))
+      config.plugins?.push(viteMockServe({ mockPath: 'mock' }))
     }
   }
 

@@ -27,12 +27,12 @@
 		"skipLibCheck": false,
 		"outDir": "dist",
 		"types": [
-			"@types/lodash-es",
 			"vite/client"
 		],
 		"typeRoots": [
 			"types",
-			"node_modules/@types"
+			"node_modules/@types",
+			"node_modules/@types/lodash-es",
 		],
 		"paths": {
 			"@/*": [
