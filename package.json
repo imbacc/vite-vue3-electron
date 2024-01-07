@@ -22,13 +22,13 @@
 		"e-build": "rimraf ./dist/electron && tsc ./electron/main.ts ./electron/preload.ts --outDir ./dist/electron && cross-env NODE_ENV=production",
 		"divider3": "--------------------------------------------",
 		"typecheck": "vue-tsc --noEmit --skipLibCheck",
-		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue",
-		"lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx,.vue",
+		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue --quiet",
+		"lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx,.vue --quiet",
 		"czc": "git add . && cz",
 		"preinstall": "npx only-allow pnpm",
 		"prepare": "husky install",
-		"update:list": "ncu",
-		"update:up": "ncu -u"
+		"up": "taze",
+		"up:max": "taze major"
 	},
 	"build": {
 		"appId": "vite.vue3.electron",
@@ -74,7 +74,7 @@
 		"url": "git+https://github.com/imbacc/vite-vue3-electron.git"
 	},
 	"dependencies": {
-		"axios": "^1.6.0",
+		"axios": "^1.6.5",
 		"dayjs": "^1.11.10",
 		"imba-cache": "^1.1.13",
 		"imba-request": "^1.0.25",
@@ -83,7 +83,7 @@
 		"nprogress": "^0.2.0",
 		"pinia": "^2.1.7",
 		"qs-stringify": "^1.2.1",
-		"vue": "^3.3.7",
+		"vue": "^3.4.5",
 		"vue-router": "^4.2.5"
 	},
 	"devDependencies": {

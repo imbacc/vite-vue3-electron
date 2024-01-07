@@ -21,13 +21,13 @@ export default () => {
     console.log('%c [ test3 res ]-5', 'font-size:14px; background:#41b883; color:#ffffff;', res)
   })
 
-  ipcEmit('downloadFile', {
-    fileURL: 'http://xxx.com/a.png',
-    fileName: 'fileName',
-    fileSuffix: 'png',
-  })
+  // ipcEmit('downloadFile', {
+  //   fileURL: 'http://xxx.com/a.png',
+  //   fileName: 'fileName',
+  //   fileSuffix: 'png',
+  // })
 
-  ipcEmit('openUrl', 'http://www.baidu.com')
+  // ipcEmit('openUrl', 'http://www.baidu.com')
 
-  ipcEmit('showMsg', { title: 'title', message: 'message' })
+  // ipcEmit('showMsg', { title: 'title', message: 'message' })
 }

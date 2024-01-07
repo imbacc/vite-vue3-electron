@@ -11,11 +11,7 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"esModuleInterop": true,
-		"lib": [
-			"esnext",
-			"es6",
-			"dom"
-		],
+		"lib": ["esnext","es6","webworker","DOM","DOM.Iterable"],
 		"alwaysStrict": true,
 		"declaration": true,
 		"removeComments": true,
@@ -26,34 +22,13 @@
 		"noImplicitAny": true,
 		"skipLibCheck": false,
 		"outDir": "dist",
-		"types": [
-			"vite/client"
-		],
-		"typeRoots": [
-			"types",
-			"node_modules/@types",
-			"node_modules/@types/lodash-es",
-		],
+		"types": ["vite/client"],
+		"typeRoots": ["types","node_modules/@types","node_modules/@types/lodash-es"],
 		"paths": {
-			"@/*": [
-				"./src/*"
-			],
-			"#/*": [
-				"./types/*"
-			],
-		}
+      "@/*": ["./src/*"],
+      "#/*": ["./types/*"]
+    }
 	},
-	"include": [
-		"src/**/*.ts",
-		"src/**/*.d.ts",
-		"src/**/*.tsx",
-		"src/**/*.vue",
-		"types/**/*.d.ts",
-		"vite-plugin/**/*.ts"
-	],
-	"exclude": [
-		"node_modules",
-		"tests",
-		".history"
-	]
+	"include": ["src/**/*.ts","src/**/*.d.ts","src/**/*.tsx", "src/**/*.vue","types/**/*.d.ts","vite-plugin/**/*.ts"],
+  "exclude": ["node_modules","tests",".history", ".husky"]
 }

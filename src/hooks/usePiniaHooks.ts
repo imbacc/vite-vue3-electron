@@ -1,4 +1,3 @@
-import type { key_valueof_CONVERT, keyof_CONVERT } from '#/global'
 import type { StateTree, Store } from 'pinia'
 
 import { setCacheLoca, delCache } from 'imba-cache'
@@ -19,7 +18,7 @@ export const useClearStore = (_this: Store) => {
   const newState: Record<string, any> = {}
 
   for (const key of stateKeys) {
-    queueMicrotask(() => delCache(key))
+    delCache(key)
     const oldState = newState[key]
     if (typeof oldState === 'string') {
       newState[key] = ''
