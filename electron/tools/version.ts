@@ -1,3 +1,5 @@
+import process from 'node:process'
+
 // 显示版本
 export const injectIpcVersion = () => {
   window.addEventListener('DOMContentLoaded', () => {

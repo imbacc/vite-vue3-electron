@@ -1,5 +1,6 @@
 import { app, BrowserWindow, globalShortcut } from 'electron'
-import { join } from 'path'
+import { join } from 'node:path'
+import process from 'node:process'
 import directive from './tools/directive'
 import ipcService from './tools/ipcService'
 import menuEvenet from './tools/menuEvent'

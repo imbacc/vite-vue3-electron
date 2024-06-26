@@ -2,7 +2,8 @@ import type { UserConfig } from 'vite'
 import type { ENV_DTYPE } from './types/vite-plugin/auto-env'
 
 // import { rmSync } from 'node:fs'
-import { resolve } from 'path'
+import process from 'node:process'
+import { resolve } from 'node:path'
 import { loadEnv, defineConfig } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 

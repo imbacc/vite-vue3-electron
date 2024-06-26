@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { autoUpdater, dialog } from 'electron'
 
 export default (win, app) => {

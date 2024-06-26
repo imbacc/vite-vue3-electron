@@ -1,9 +1,10 @@
 import type { SaveDialogSyncOptions } from 'electron'
 
 import { app, dialog } from 'electron'
-import * as fs from 'fs'
-import * as http from 'http'
-import * as https from 'https'
+import buffer from 'node:buffer'
+import fs from 'node:fs'
+import http from 'node:http'
+import https from 'node:https'
 
 // 获取下载文件和保存路径
 const downloadFile = async (url: string, savePath: string) => {
@@ -52,7 +53,7 @@ const saveBlobAsFile = async (blobURL: any, fileName = '', fname = '所有文件
 
   const savePath = selectSavePath(fileName, fname, extensions)
   if (savePath) {
-    fs.writeFile(savePath, Buffer.from(arrayBuffer), (err) => {
+    fs.writeFile(savePath, buffer.Buffer.from(arrayBuffer), (err) => {
       if (err) console.error(err)
     })
   }

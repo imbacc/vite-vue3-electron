@@ -27,8 +27,8 @@ export const formatEnv = (viteEnv: Record<string, any>): ENV_DTYPE => {
       continue
     }
 
-    if (!isNaN(val)) {
-      viteEnv[key] = parseInt(val)
+    if (!Number.isNaN(val)) {
+      viteEnv[key] = Number.parseInt(val)
       continue
     }
 

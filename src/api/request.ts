@@ -105,8 +105,7 @@ axios.interceptors.response.use((response) => {
   }
 
   return false
-},
-(error) => {
+}, (error) => {
   // 对响应错误做点什么
   const err = error.toString()
   console.error('response error', err)

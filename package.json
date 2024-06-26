@@ -22,8 +22,8 @@
 		"e-build": "rimraf ./dist/electron && tsc ./electron/main.ts ./electron/preload.ts --outDir ./dist/electron && cross-env NODE_ENV=production",
 		"divider3": "--------------------------------------------",
 		"typecheck": "vue-tsc --noEmit --skipLibCheck",
-		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue --quiet",
-		"lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx,.vue --quiet",
+		"lint": "eslint . --quiet",
+		"lint:fix": "eslint . --fix --quiet",
 		"czc": "git add . && cz",
 		"preinstall": "npx only-allow pnpm",
 		"prepare": "husky install",
@@ -87,7 +87,7 @@
 		"vue-router": "^4.2.5"
 	},
 	"devDependencies": {
-		"@antfu/eslint-config": "^0.35.2",
+		"@antfu/eslint-config": "^2.21.1",
 		"@commitlint/config-conventional": "^18.1.0",
 		"@types/follow-redirects": "^1.14.3",
 		"@types/lodash-es": "^4.17.10",
@@ -108,7 +108,7 @@
 		"eslint-plugin-vue": "^9.18.1",
 		"follow-redirects": "^1.15.3",
 		"husky": "^8.0.3",
-		"imba-config": "^1.0.8",
+		"imba-config": "^2.0.2",
 		"lint-staged": "^15.0.2",
 		"mockjs": "^1.1.0",
 		"nodemon": "^3.0.1",
