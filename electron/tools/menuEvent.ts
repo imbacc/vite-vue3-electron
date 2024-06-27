@@ -1,7 +1,9 @@
+import type { BrowserWindow } from 'electron'
+
 import process from 'node:process'
 import { Menu } from 'electron'
 
-export default (win) => {
+export default (win: BrowserWindow) => {
   Menu.setApplicationMenu(null)
 
   const template: any = [

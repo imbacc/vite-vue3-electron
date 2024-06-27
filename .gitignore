@@ -28,3 +28,4 @@ dist-ssr
 .pnpm-debug.log
 .history/*
 deskApp
+.cpuprofile

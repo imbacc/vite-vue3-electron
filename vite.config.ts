@@ -7,6 +7,8 @@ import { resolve } from 'node:path'
 import { loadEnv, defineConfig } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 
+// electron
+import electron from 'vite-plugin-electron/simple'
 // vue
 import vue from '@vitejs/plugin-vue'
 // icon 按需引入
@@ -71,7 +73,7 @@ const config: UserConfig = {
   },
 
   optimizeDeps: {
-    include: ['nprogress', 'qs-stringify', 'axios', 'lodash-es', 'electron', 'path', 'dayjs'],
+    include: ['nprogress', 'qs-stringify', 'axios', 'lodash-es', 'electron', 'dayjs'],
   },
 
   resolve: {
@@ -110,9 +112,53 @@ export default defineConfig(({ command, mode }) => {
   const { VITE_GLOB_APP_TITLE, VITE_USE_MOCK, VITE_BUILD_GZIP } = VITE_ENV
   // console.log('command=', command)
   // console.log('mode=', mode)
-  config.plugins?.push(envPlugin(VITE_ENV))
+  const isBuild = command === 'build' && mode === 'production'
 
-  if (command === 'build' && mode === 'production') {
+  config.plugins?.push(envPlugin(VITE_ENV))
+  config.plugins?.push(electron({
+    main: {
+      // Shortcut of `build.lib.entry`
+      entry: 'electron/main.ts',
+      // onstart({ startup }) {
+      //   startup()
+      // },
+      vite: {
+        build: {
+          sourcemap: isBuild,
+          minify: isBuild,
+          outDir: 'dist/electron',
+          rollupOptions: {
+            // Some third-party Node.js libraries may not be built correctly by Vite, especially `C/C++` addons,
+            // we can use `external` to exclude them to ensure they work correctly.
+            // Others need to put them in `dependencies` to ensure they are collected into `app.asar` after the app is built.
+            // Of course, this is not absolute, just this way is relatively simple. :)
+            external: Object.keys('dependencies' in packageJson ? packageJson.dependencies : {}),
+          },
+        },
+      },
+    },
+    preload: {
+      // Shortcut of `build.rollupOptions.input`.
+      // Preload scripts may contain Web assets, so use the `build.rollupOptions.input` instead `build.lib.entry`.
+      input: 'electron/preload.ts',
+      vite: {
+        build: {
+          sourcemap: isBuild ? 'inline' : undefined, // #332
+          minify: isBuild,
+          outDir: 'dist/electron',
+          rollupOptions: {
+            external: Object.keys('dependencies' in packageJson ? packageJson.dependencies : {}),
+          },
+        },
+      },
+    },
+    // Ployfill the Electron and Node.js API for Renderer process.
+    // If you want use Node.js in Renderer process, the `nodeIntegration` needs to be enabled in the Main process.
+    // See 👉 https://github.com/electron-vite/vite-plugin-electron-renderer
+    renderer: {},
+  }))
+
+  if (isBuild) {
     // 编译环境配置
     // if (VITE_BUILD_GZIP) {
     //   config.plugins?.push(compressionPlugin({

@@ -1,5 +1,5 @@
 import { app, BrowserWindow, globalShortcut } from 'electron'
-import { join } from 'node:path'
+import path from 'node:path'
 import process from 'node:process'
 import directive from './tools/directive'
 import ipcService from './tools/ipcService'
@@ -14,13 +14,13 @@ const createWindow = () => {
     width: 1920,
     height: 1080,
     // autoHideMenuBar: true, // 隐藏菜单栏
-    icon: join(__dirname, '../render/logo.png'),
+    icon: path.join(__dirname, '../render/logo.png'),
     webPreferences: {
       javascript: true,
       plugins: true,
       nodeIntegration: true, // 是否集成 Nodejs
       webSecurity: false,
-      preload: join(__dirname, './preload.js'),
+      preload: path.join(__dirname, './preload.js'),
       contextIsolation: true,
       nodeIntegrationInWorker: true, // 多线程
     },
@@ -40,7 +40,7 @@ const createWindow = () => {
     // win.setAlwaysOnTop(true)
   } else {
     // 生产环境
-    win.loadFile(join(__dirname, '../render/index.html'))
+    win.loadFile(path.join(__dirname, '../render/index.html'))
   }
 
   win.on('closed', () => {
@@ -56,10 +56,6 @@ app.whenReady().then(() => {
   menuEvenet(win)
   directive(win)
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-
   // app.on('browser-window-blur', (e) => {
   // console.log('blur')
   // })
@@ -67,6 +63,15 @@ app.whenReady().then(() => {
   // app.on('browser-window-focus', (e) => {
   // console.log('focus')
   // })
+})
+
+app.on('activate', () => {
+  const allWindows = BrowserWindow.getAllWindows()
+  if (allWindows.length) {
+    allWindows[0].focus()
+  } else {
+    createWindow()
+  }
 })
 
 // 所有窗户关闭时触发。

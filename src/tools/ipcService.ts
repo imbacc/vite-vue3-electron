@@ -1,33 +1,37 @@
-import { ipcEmit, ipcRenderer } from './eventIpc'
+import { ipcInvoke, ipcEmit, ipcRenderer } from './eventIpc'
 
 export default () => {
   if (!ipcRenderer) {
     console.warn('没有开启ipcRenderer 表示是浏览器环境!')
     return
   }
-  ipcEmit('test0').then((res) => {
+
+  // 去node控制台看消息
+  ipcEmit('notice', 'render emit!')
+
+  ipcInvoke('test0').then((res) => {
     console.log('%c [ test0 res ]-13', 'font-size:14px; background:#41b883; color:#ffffff;', res)
   })
 
-  ipcEmit('test1').then((res) => {
+  ipcInvoke('test1').then((res) => {
     console.log('%c [ test1 res ]-9', 'font-size:14px; background:#41b883; color:#ffffff;', res)
   })
 
-  ipcEmit('test2').then((res) => {
+  ipcInvoke('test2').then((res) => {
     console.log('%c [ test2 res ]-5', 'font-size:14px; background:#41b883; color:#ffffff;', res)
   })
 
-  ipcEmit('test3').then((res) => {
+  ipcInvoke('test3').then((res) => {
     console.log('%c [ test3 res ]-5', 'font-size:14px; background:#41b883; color:#ffffff;', res)
   })
 
-  // ipcEmit('downloadFile', {
+  // ipcInvoke('downloadFile', {
   //   fileURL: 'http://xxx.com/a.png',
   //   fileName: 'fileName',
   //   fileSuffix: 'png',
   // })
 
-  // ipcEmit('openUrl', 'http://www.baidu.com')
+  // ipcInvoke('openUrl', 'http://www.baidu.com')
 
-  // ipcEmit('showMsg', { title: 'title', message: 'message' })
+  // ipcInvoke('showMsg', { title: 'title', message: 'message' })
 }

@@ -2,9 +2,9 @@
 	"compilerOptions": {
 		"module": "esnext",
 		"target": "esnext",
-		"baseUrl": ".",
-		"allowJs": true,
 		"moduleResolution": "node",
+		"verbatimModuleSyntax": true,
+		"allowJs": true,
 		"strict": true,
 		"jsx": "preserve",
 		"sourceMap": false,
@@ -23,7 +23,7 @@
 		"skipLibCheck": false,
 		"outDir": "dist",
 		"types": ["vite/client"],
-		"typeRoots": ["types","node_modules/@types","node_modules/@types/lodash-es"],
+		"typeRoots": ["types"],
 		"paths": {
       "@/*": ["./src/*"],
       "#/*": ["./types/*"]

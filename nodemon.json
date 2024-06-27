@@ -1,6 +1,0 @@
-{
-  "watch": ["electron"],
-  "ext": "ts",
-  "ignore": ["src", "tests", "types", "public", "mock", "dist", ".huksy", ".history"],
-  "exec": "tsc ./electron/main.ts ./electron/preload.ts --outDir ./dist/electron && cross-env NODE_ENV=development electron ."
-}
