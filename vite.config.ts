@@ -106,7 +106,14 @@ const config: UserConfig = {
   },
 }
 
-export default defineConfig(({ command, mode }) => {
+let initDefaultConfig = true
+
+export const webConfig = ({ command, mode }) => {
+  initDefaultConfig = false
+  return defaultConfig({ command, mode })
+}
+
+export const defaultConfig = ({ command, mode }) => {
   // rmSync('dist-electron', { recursive: true, force: true })
   const VITE_ENV = formatEnv(loadEnv(mode, process.cwd())) as ENV_DTYPE
   const { VITE_GLOB_APP_TITLE, VITE_USE_MOCK, VITE_BUILD_GZIP } = VITE_ENV
@@ -115,48 +122,51 @@ export default defineConfig(({ command, mode }) => {
   const isBuild = command === 'build' && mode === 'production'
 
   config.plugins?.push(envPlugin(VITE_ENV))
-  config.plugins?.push(electron({
-    main: {
-      // Shortcut of `build.lib.entry`
-      entry: 'electron/main.ts',
-      // onstart({ startup }) {
-      //   startup()
-      // },
-      vite: {
-        build: {
-          sourcemap: isBuild,
-          minify: isBuild,
-          outDir: 'dist/electron',
-          rollupOptions: {
-            // Some third-party Node.js libraries may not be built correctly by Vite, especially `C/C++` addons,
-            // we can use `external` to exclude them to ensure they work correctly.
-            // Others need to put them in `dependencies` to ensure they are collected into `app.asar` after the app is built.
-            // Of course, this is not absolute, just this way is relatively simple. :)
-            external: Object.keys('dependencies' in packageJson ? packageJson.dependencies : {}),
+
+  if (initDefaultConfig) {
+    config.plugins?.push(electron({
+      main: {
+        // Shortcut of `build.lib.entry`
+        entry: 'electron/main.ts',
+        // onstart({ startup }) {
+        //   startup()
+        // },
+        vite: {
+          build: {
+            sourcemap: isBuild,
+            minify: isBuild,
+            outDir: 'dist/electron',
+            rollupOptions: {
+              // Some third-party Node.js libraries may not be built correctly by Vite, especially `C/C++` addons,
+              // we can use `external` to exclude them to ensure they work correctly.
+              // Others need to put them in `dependencies` to ensure they are collected into `app.asar` after the app is built.
+              // Of course, this is not absolute, just this way is relatively simple. :)
+              external: Object.keys('dependencies' in packageJson ? packageJson.dependencies : {}),
+            },
           },
         },
       },
-    },
-    preload: {
-      // Shortcut of `build.rollupOptions.input`.
-      // Preload scripts may contain Web assets, so use the `build.rollupOptions.input` instead `build.lib.entry`.
-      input: 'electron/preload.ts',
-      vite: {
-        build: {
-          sourcemap: isBuild ? 'inline' : undefined, // #332
-          minify: isBuild,
-          outDir: 'dist/electron',
-          rollupOptions: {
-            external: Object.keys('dependencies' in packageJson ? packageJson.dependencies : {}),
+      preload: {
+        // Shortcut of `build.rollupOptions.input`.
+        // Preload scripts may contain Web assets, so use the `build.rollupOptions.input` instead `build.lib.entry`.
+        input: 'electron/preload.ts',
+        vite: {
+          build: {
+            sourcemap: isBuild ? 'inline' : undefined, // #332
+            minify: isBuild,
+            outDir: 'dist/electron',
+            rollupOptions: {
+              external: Object.keys('dependencies' in packageJson ? packageJson.dependencies : {}),
+            },
           },
         },
       },
-    },
-    // Ployfill the Electron and Node.js API for Renderer process.
-    // If you want use Node.js in Renderer process, the `nodeIntegration` needs to be enabled in the Main process.
-    // See 👉 https://github.com/electron-vite/vite-plugin-electron-renderer
-    renderer: {},
-  }))
+      // Ployfill the Electron and Node.js API for Renderer process.
+      // If you want use Node.js in Renderer process, the `nodeIntegration` needs to be enabled in the Main process.
+      // See 👉 https://github.com/electron-vite/vite-plugin-electron-renderer
+      renderer: {},
+    }))
+  }
 
   if (isBuild) {
     // 编译环境配置
@@ -175,4 +185,6 @@ export default defineConfig(({ command, mode }) => {
   }
 
   return config
-})
+}
+
+export default defineConfig(defaultConfig)

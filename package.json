@@ -12,6 +12,7 @@
 		"force": "vite --mode development --force",
 		"build": "rimraf ./deskApp && pnpm run v-build && cross-env NODE_ENV=production electron-builder",
 		"divider1": "--------------------------------------------",
+		"v-dev": "vite --mode development -c vite.config.web.ts",
 		"v-build": "rimraf ./dist/render && vite build --mode production",
 		"v-build:test": "rimraf ./dist/render && vite build --mode testing",
 		"v-build:prod": "rimraf ./dist/render && vite build --mode production",
