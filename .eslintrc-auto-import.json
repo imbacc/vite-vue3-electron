@@ -91,6 +91,15 @@
     "Ref": true,
     "VNode": true,
     "WritableComputedRef": true,
-    "toValue": true
+    "toValue": true,
+    "useDialog": true,
+    "useLoadingBar": true,
+    "useMessage": true,
+    "useNotification": true,
+    "NButton": true,
+    "ipcEmit": true,
+    "ipcInvoke": true,
+    "ipcRenderOn": true,
+    "ipcRenderer": true
   }
 }

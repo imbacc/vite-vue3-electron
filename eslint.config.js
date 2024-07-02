@@ -12,4 +12,10 @@ module.exports = antfu({
 }, {
   rules: eslintConfig,
   ignores: ignoresConfig,
+}, {
+  rules: {
+    'tnode/handle-callback-err': 'off',
+    'node/handle-callback-err': 'off',
+  },
+  ignores: ['global.scss'],
 })

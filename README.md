@@ -9,8 +9,10 @@ vue3 <https://v3.cn.vuejs.org>
 <br/>
 electron  <https://cloud.tencent.com/developer/doc/1070> <https://www.electronjs.org>
 <br/>
-### vite和electron都启动
+### web和electron都启动
 `pnpm run dev`
+### 只启动web
+`pnpm run v-dev`
 <br/>
 ### 只编译web
 `pnpm run v-build`

@@ -2,8 +2,9 @@ import { app, BrowserWindow, globalShortcut } from 'electron'
 import path from 'node:path'
 import process from 'node:process'
 import directive from './tools/directive'
-import ipcService from './tools/ipcService'
 import menuEvenet from './tools/menuEvent'
+import electronCache from './tools/electronCache'
+import ipcService from './ipcService/index'
 
 const dev = process.env.NODE_ENV === 'development'
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
@@ -52,6 +53,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   const win = createWindow()
+  electronCache()
   ipcService(win)
   menuEvenet(win)
   directive(win)

@@ -42,14 +42,14 @@ const loadRouterMode = async () => {
 }
 
 // ...前置
-router.beforeEach(async ({ path, meta }, from, next) => {
+router.beforeEach(async (to, from, next) => {
   start()
 
   const userStore = useUserStore()
   const authStore = useAuthStore()
 
   // 白名单跳过
-  if (authStore.hasWhiteIgnore(path)) {
+  if (authStore.hasWhiteIgnore(to.path)) {
     next()
     return
   }
@@ -60,11 +60,11 @@ router.beforeEach(async ({ path, meta }, from, next) => {
     return
   }
 
-  const metaAuth = meta.auth as Array<string>
+  const metaAuth = to.meta?.auth as Array<string>
   // 判断是否有权限
   if (metaAuth) {
     if (!authStore.hasRouterAuth(metaAuth)) {
-      console.error(`${path} 没有权限!`)
+      console.error(`${to.path} 没有权限!`)
       next('/401')
       return
     }
@@ -74,7 +74,7 @@ router.beforeEach(async ({ path, meta }, from, next) => {
 })
 
 // ...后置
-router.afterEach((_to, _from) => {
+router.afterEach((to, from) => {
   done()
 })
 

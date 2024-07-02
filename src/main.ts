@@ -7,6 +7,7 @@ import { loadRouterMode } from '@/router/index'
 // 全局样式
 import 'uno.css'
 import 'nprogress/nprogress.css'
+import naive from 'naive-ui'
 
 const setup = async () => {
   const app = createApp(App)
@@ -15,6 +16,7 @@ const setup = async () => {
   app.use(store)
   app.use(router)
   app.use(direct)
+  app.use(naive)
   app.mount('#app')
 }
 

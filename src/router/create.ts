@@ -10,9 +10,9 @@ const defaultRouter = [
     component: () => import('@/views/test/login.vue'),
   },
   {
-    name: 'index',
     path: '/',
-    component: () => import('@/views/test/index.vue'),
+    component: () => import('@/views/table/index'),
+    // component: () => import('@/views/test/index.vue'),
   },
   {
     name: '404',

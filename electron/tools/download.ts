@@ -1,4 +1,5 @@
 import type { SaveDialogSyncOptions } from 'electron'
+import type { downloadParams_DTYPE } from '../../types/electron/types'
 
 import { app, dialog } from 'electron'
 import buffer from 'node:buffer'
@@ -59,13 +60,7 @@ const saveBlobAsFile = async (blobURL: any, fileName = '', fname = '所有文件
   }
 }
 
-interface params_DTYPE {
-  fileURL: string
-  fileName: string
-  fileSuffix: string
-}
-
-export const useDownloadFile = ({ fileURL, fileName, fileSuffix }: params_DTYPE) => {
+export const useDownloadFile = ({ fileURL, fileName, fileSuffix }: downloadParams_DTYPE) => {
   const idx1 = fileURL.lastIndexOf('/')
   const idx2 = fileURL.lastIndexOf('.')
   const name = fileName || (idx1 === -1 ? '' : fileURL.substring(idx1, idx2))

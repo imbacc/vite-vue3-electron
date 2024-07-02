@@ -7,7 +7,19 @@ export default () => {
     // 匹配的文件，也就是哪些后缀的文件需要自动引入
     include: [/\.[tj]sx?$/, /\.vue$/],
     // 自动引入的api从这里找
-    imports: ['vue', 'vue-router', 'pinia'],
+    imports: [
+      'vue',
+      'vue-router',
+      'pinia',
+      {
+        'naive-ui': [
+          'useDialog',
+          'useMessage',
+          'useNotification',
+          'useLoadingBar',
+        ],
+      },
+    ],
     // 自动引入的目录
     dirs: ['src/api/*', 'src/store', 'src/hooks'],
     // 根据项目情况配置eslintrc，默认是不开启的

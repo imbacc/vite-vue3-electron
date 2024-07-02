@@ -29,6 +29,10 @@ import componentsPlugin from './vite-plugin/vite-plugin-components'
 // 自动导入路由 需要可以用
 import routerPagePlugin from './vite-plugin/vite-plugin-routerPage'
 
+// naiveUi自动
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+
 import packageJson from './package.json'
 import dayjs from 'dayjs'
 
@@ -94,6 +98,9 @@ const config: UserConfig = {
     routerPagePlugin(),
     unocss(),
     vueTsx(),
+    Components({
+      resolvers: [NaiveUiResolver()],
+    }),
   ],
 
   // 要将一些共享的全局变量传递给所有的Less样式

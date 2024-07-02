@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import ipcService from '@/tools/ipcService'
+import ipcService from '@/ipcService/index'
 
 onMounted(() => {
   ipcService()
